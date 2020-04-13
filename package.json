@@ -4,19 +4,36 @@
   "description": "A bare-bones node/typescript project starter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jestconfig.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json"
   },
-  "keywords": ["typescript", "node", "cli", "no framework"],
-  "author": "",
+  "keywords": [
+    "typescript",
+    "node",
+    "cli",
+    "no framework"
+  ],
+  "author": "Bukola Jimoh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeama/node-ts-cli.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.1",
+    "husky": "^4.2.5",
     "jest": "^25.3.0",
     "prettier": "^2.0.4",
     "ts-jest": "^25.3.1",
-    "ts-lint": "^4.5.1",
+    "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format"
+    }
   }
 }
