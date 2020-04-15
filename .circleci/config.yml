@@ -1,0 +1,64 @@
+version: 2.1
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:13.13.0
+
+commands:
+  install_dependencies:
+    description: Installs dependecies for project
+    steps:
+      - run:
+          name: Installing dependencies
+          command: |
+            npm install
+
+  run_linter:
+    description: Runs linter on code
+    steps:
+      - run:
+          name: Running linter
+          command: |
+            npm run lint
+
+  run_unit_tests:
+    description: Runs unit tests
+    steps:
+      - run:
+          name: Running unit tests
+          command: |
+            npm test
+
+jobs:
+  build_branch:
+    executor: node
+    description: Builds, lints and lints code
+    steps:
+      - checkout
+      - install_dependencies
+      - run_linter
+      - run_unit_tests
+    
+  publish_package:
+    executor: node
+    steps:
+      - run:
+          name: Testing publish
+          command: |
+            echo "Publish package in npm repositories"
+
+workflows:
+  version: 2
+
+  build_and_test:
+    jobs:
+      - build_branch:
+          filters:
+            branches:
+              only: /.*/
+      - publish_package:
+          filters:
+            branches:
+              only: master
+          
