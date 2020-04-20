@@ -15,5 +15,9 @@ export function generateConfigFile(
   src: string,
   dest: string,
 ) {
-  copyFunc(src, dest);
+  try {
+    copyFunc(src, dest);
+  } catch (err) {
+    return err;
+  }
 }

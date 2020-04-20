@@ -16,6 +16,15 @@ describe('Create config files', () => {
     expect(copy).toEqual(source);
   });
 
+  it('should throw an error if something goes wrong', () => {
+    function getCopyFile(src: string, dest: string) {
+      throw new Error();
+    }
+
+    const error = generateConfigFile(getCopyFile, 'source_file', '');
+    expect(error).toEqual(new Error());
+  });
+
   // TODO for integration tests
   it.todo('should create a jestconfig.json file');
   it.todo('should create a tsconfig.json file');
