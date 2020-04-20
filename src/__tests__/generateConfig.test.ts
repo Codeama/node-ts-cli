@@ -24,9 +24,4 @@ describe('Create config files', () => {
     const error = generateConfigFile(getCopyFile, 'source_file', '');
     expect(error).toEqual(new Error());
   });
-
-  // TODO for integration tests
-  it.todo('should create a jestconfig.json file');
-  it.todo('should create a tsconfig.json file');
-  it.todo('should create a tslint.json file');
 });
