@@ -6,7 +6,7 @@ export function getmkdirSync(name: string) {
 
 export function createJsDir(fn: (conf: string) => void, name: string) {
   try {
-    fn(name); 
+    fn(name);
   } catch (err) {
     return err;
   }
