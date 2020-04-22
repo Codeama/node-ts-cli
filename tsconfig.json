@@ -3,6 +3,8 @@
     "target": "es2019",
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
     "lib": ["ES6"],
     "outDir": "./lib",
     "strict": true,
