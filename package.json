@@ -2,11 +2,14 @@
   "name": "node-ts-cli",
   "version": "1.0.0",
   "description": "A bare-bones node/typescript project starter",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
+  },
+  "bin": {
+    "node-tsc": "lib/index.js"
   },
   "keywords": [
     "typescript",
@@ -35,5 +38,8 @@
     "hooks": {
       "pre-commit": "npm run format"
     }
+  },
+  "dependencies": {
+    "chalk": "^4.0.0"
   }
 }
