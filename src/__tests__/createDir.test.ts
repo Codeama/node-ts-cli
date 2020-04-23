@@ -1,4 +1,4 @@
-import { createJsDir } from '../createDir';
+import { getmkdirSync, createJsDir } from '../createDir';
 
 describe('Create Directory', () => {
   it('should create a directory with specified name', () => {
@@ -7,15 +7,18 @@ describe('Create Directory', () => {
     function fakemkdirFunc(name: string) {
       entry = `${name}-directory`;
     }
-    function getmkdirSync(name: string) {
+    function getmkdirSyncMocked(name: string) {
       return fakemkdirFunc(name);
     }
 
-    createJsDir(getmkdirSync, entry);
+    createJsDir(getmkdirSyncMocked, entry);
     expect(entry).toEqual('test-directory');
   });
 
-  it.todo('should return an error if something goes wrong');
+  it('should return an error if something goes wrong', () => {
+    expect(getmkdirSync).toThrowError();
+    expect(createJsDir).toThrowError();
+  });
   it.todo('should use current working directory when none is specified');
   it.todo('should not create another directory when the specified name already exists');
 });
