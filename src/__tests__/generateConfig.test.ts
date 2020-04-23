@@ -17,11 +17,9 @@ describe('Create config files', () => {
   });
 
   it('should throw an error if something goes wrong', () => {
-    function getCopyFile(src: string, dest: string) {
+    function fakecopyFile(src: string, dest: string) {
       throw new Error();
     }
-
-    const error = generateConfigFile(getCopyFile, 'source_file', '');
-    expect(error).toEqual(new Error());
+    expect(() => generateConfigFile(fakecopyFile, 'src', 'dest')).toThrowError();
   });
 });

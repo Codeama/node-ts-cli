@@ -2,10 +2,10 @@ import { copyFile, constants } from 'fs';
 
 const { COPYFILE_EXCL } = constants;
 
-export function getCopyFile(src: string, dest: string) {
+export function getCopyFileFunc(src: string, dest: string) {
   copyFile(src, dest, COPYFILE_EXCL, (err) => {
     if (err) {
-      return err;
+      throw err;
     }
   });
 }
@@ -18,6 +18,6 @@ export function generateConfigFile(
   try {
     copyFunc(src, dest);
   } catch (err) {
-    return err;
+    throw err;
   }
 }
