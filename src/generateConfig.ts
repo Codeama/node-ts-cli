@@ -1,23 +1,12 @@
-import { copyFile, constants } from 'fs';
-
-const { COPYFILE_EXCL } = constants;
-
-export function getCopyFileFunc(src: string, dest: string) {
-  copyFile(src, dest, COPYFILE_EXCL, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
-}
-
-export function generateConfigFile(
-  copyFunc: (src: string, dest: string) => void,
-  src: string,
-  dest: string,
-) {
-  try {
-    copyFunc(src, dest);
-  } catch (err) {
-    throw err;
-  }
+export function getCopyAllFilesFunc(srcDir: string, destDir: string) {
+  return function copyFiles(
+    copyFunc: (src: string, dest: string, file: string) => void,
+    files: string[],
+  ) {
+    return Promise.all(
+      files.map((file) => {
+        return copyFunc(srcDir, destDir, file);
+      }),
+    );
+  };
 }
