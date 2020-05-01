@@ -7,10 +7,10 @@ executors:
 
 commands:
   install_dependencies:
-    description: Installs dependecies for project
+    description: Installs dependencies for project
     steps:
       - run:
-          name: Installing dependencies
+          name: Install dependencies
           command: |
             npm install
 
@@ -18,7 +18,7 @@ commands:
     description: Runs linter on code
     steps:
       - run:
-          name: Running linter
+          name: Lint
           command: |
             npm run lint
 
@@ -26,7 +26,7 @@ commands:
     description: Runs unit tests
     steps:
       - run:
-          name: Running unit tests
+          name: Run unit tests
           command: |
             npm test
 
