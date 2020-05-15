@@ -60,7 +60,6 @@ function npmInit() {
  * Installs dependencies
  */
 async function installDependencies() {
-  log(yellow('Installing dev dependencies...'));
   try {
     await execInstall(
       typeScript,
