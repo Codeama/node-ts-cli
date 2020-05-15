@@ -63,7 +63,7 @@ export function getCreateAllFilesFunc(
 ): () => Promise<void[]> {
   /**
    * Inner function to create files
-   * @returns - an array of promises on completion
+   * @returns - a promise
    */
   return function createFiles(): Promise<void[]> {
     return Promise.all(
@@ -148,7 +148,7 @@ async function update(
  * Creates or updates an array of files
  * @param path - path to file
  * @param content - data to update files
- * @returns - returns an array of promises when complete
+ * @returns - a promise
  */
 async function create(
   path: string,
@@ -209,7 +209,7 @@ export function getConfigFilesFunc(
 ): () => Promise<void[]> {
   /**
    * Inner function that creates the config files
-   * @returns an array of promises on completion
+   * @returns a promise
    */
   return function configFilesFunc(): Promise<void[]> {
     return Promise.all(
