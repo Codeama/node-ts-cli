@@ -9,5 +9,11 @@
     "outDir": "./lib",
     "strict": true,
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "__tests__/**",
+    "lib",
+    "integration-tests"
+  ]
 }
