@@ -54,6 +54,8 @@ jobs:
           name: Testing publish
           command: |
             echo "Publish package in npm repositories"
+            echo "Checking current working directory"
+            pwd
 
 workflows:
   version: 2
