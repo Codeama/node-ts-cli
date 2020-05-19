@@ -39,6 +39,13 @@ jobs:
       - install_dependencies
       - run_linter
       - run_unit_tests
+      - run:
+          name: Check Working Directory
+          command: |
+            echo "Checking current working directory"
+            pwd
+            cd ~
+            ls
     
   publish_package:
     executor: node
