@@ -12,6 +12,7 @@ commands:
       - run:
           name: Install dependencies
           command: |
+            cd node-tsc
             npm install
 
   run_linter:
@@ -20,6 +21,7 @@ commands:
       - run:
           name: Lint
           command: |
+            cd node-tsc
             npm run lint
 
   run_unit_tests:
@@ -28,6 +30,7 @@ commands:
       - run:
           name: Run unit tests
           command: |
+            cd node-tsc
             npm test
 
 jobs:
