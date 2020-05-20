@@ -1,7 +1,7 @@
 import { basename, resolve } from 'path';
 
 export const tslintConfig = {
-  name: 'tslintjson',
+  name: 'tslint.json',
   config: {
     extends: ['tslint:recommended', 'tslint-config-prettier'],
   },
