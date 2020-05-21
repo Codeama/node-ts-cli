@@ -32,6 +32,19 @@ commands:
           command: |
             cd node-tsc
             npm test
+  setup_test_integ_env:
+    description: Set up environment for integrtion test
+    steps:
+      - run:
+          name: Setting up environment for integrtion test
+          command: |
+          # mkdir sandbox
+          cd node-tsc
+          npm run build && npm pack
+          echo $PWD
+          mv node-ts-cli-1.0.0.tgz ~/sandbox
+          # cd sandbox
+          # npm install -g node-ts-cli-1.0.0.tgz 
 
 jobs:
   build_branch:
@@ -60,6 +73,14 @@ jobs:
             echo "Checking current working directory"
             pwd
 
+  build_test_env:
+    executor: node
+    description: Runs set up environment for integrtion test
+    steps:
+      - checkout
+      - install_dependencies
+      - setup_test_integ_env
+
 workflows:
   version: 2
 
@@ -69,6 +90,11 @@ workflows:
           filters:
             branches:
               only: /.*/
+      - build_test_env:
+          filters:
+            branches:
+              only: /.*/
+              
       - publish_package:
           filters:
             branches:
