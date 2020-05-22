@@ -32,7 +32,7 @@ commands:
           command: |
             cd node-tsc
             npm test
-  setup_test_integ_env:
+  setup_integration_test_env:
     description: Set up environment for integrtion test
     steps:
       - run:
@@ -42,7 +42,6 @@ commands:
             mkdir test-box
             cd project/node-tsc
             npm run build && npm pack
-            echo $PWD
             mv node-ts-cli-1.0.0.tgz ~/test-box
             cd ~/test-box/
             sudo npm install -g node-ts-cli-1.0.0.tgz 
@@ -73,7 +72,7 @@ jobs:
     steps:
       - checkout
       - install_dependencies
-      - setup_test_integ_env
+      - setup_integration_test_env
 
 workflows:
   version: 2
