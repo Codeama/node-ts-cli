@@ -22,7 +22,7 @@ describe('Files and Directories', () => {
     });
 
     it('should have a README.md file', async () => {
-      const status = await checkIsFile(`${process.cwd()}/README.md`);
+      const status = await checkIsFile('~/test-box/README.md');
       expect(status).toEqual(true);
     });
   });
@@ -30,7 +30,7 @@ describe('Files and Directories', () => {
   describe('Prettier', () => {
     it('should have a .prettierrc file', async () => {
       const status = await checkIsFile(
-        `${process.cwd()}/.prettierrc`,
+        '~/test-box/.prettierrc',
       );
       expect(status).toEqual(true);
     });
@@ -39,14 +39,14 @@ describe('Files and Directories', () => {
   describe('TypesScript files', () => {
     it('should create a tsconfig.json file', async () => {
       const status = await checkIsFile(
-        `${process.cwd()}/tsconfig.json`,
+        '~/test-box/tsconfig.json',
       );
       expect(status).toEqual(true);
     });
 
     it('should create a tslint.json file', async () => {
       const status = await checkIsFile(
-        `${process.cwd()}/tslint.json`,
+        '~/test-box/tslint.json',
       );
       expect(status).toEqual(true);
     });
@@ -55,7 +55,7 @@ describe('Files and Directories', () => {
   describe('Jest', () => {
     it('should have a jestconfig.json file', async () => {
       const status = await checkIsFile(
-        `${process.cwd()}/jestconfig.json`,
+        '~/test-box/jestconfig.json',
       );
       expect(status).toEqual(true);
     });
@@ -63,12 +63,12 @@ describe('Files and Directories', () => {
 
   describe('Directories', () => {
     it('should have a src directory', async () => {
-      const status = await checkIsDirectory(`${process.cwd()}/src`);
+      const status = await checkIsDirectory('~/test-box/src');
       expect(status).toEqual(true);
     });
 
     it('should have a lib directory', async () => {
-      const status = await checkIsDirectory(`${process.cwd()}/lib`);
+      const status = await checkIsDirectory('~/test-box/lib');
       expect(status).toEqual(true);
     });
   });

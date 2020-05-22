@@ -55,6 +55,7 @@ commands:
           name: Running integration test
           command: |
             cd integration-tests
+            npm install
             npm test           
 
 jobs:
