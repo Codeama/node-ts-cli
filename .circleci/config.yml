@@ -33,10 +33,10 @@ commands:
             cd node-tsc
             npm test
   setup_integration_test_env:
-    description: Set up environment for integrtion test
+    description: Set up environment for integration test
     steps:
       - run:
-          name: Setting up environment for integrtion test
+          name: Setting up environment for integration test
           command: |
             cd ~
             mkdir test-box
@@ -68,7 +68,7 @@ jobs:
 
   build_test_env:
     executor: node
-    description: Runs set up environment for integrtion test
+    description: Runs set up environment for integration test
     steps:
       - checkout
       - install_dependencies
