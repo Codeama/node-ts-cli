@@ -48,6 +48,15 @@ commands:
             rm *
             node-tsc 
 
+  run_integration_test:
+    description: Running integration test
+    steps:
+      - run:
+          name: Running integration test
+          command: |
+            cd integration-tests
+            npm test           
+
 jobs:
   build_branch:
     executor: node
@@ -75,6 +84,7 @@ jobs:
       - checkout
       - install_dependencies
       - setup_integration_test_env
+      - run_integration_test
 
 workflows:
   version: 2

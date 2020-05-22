@@ -9,7 +9,7 @@ describe('Files and Directories', () => {
       // const currentDir = process.cwd();
       log('CURRENT WORKING DIR: ', process.cwd());
       const status = await checkIsFile(
-        `${process.cwd()}/package.json`,
+        '~/test-box/package.json',
       );
       expect(status).toEqual(true);
     });
@@ -17,7 +17,7 @@ describe('Files and Directories', () => {
 
   describe('Git', () => {
     it('should have a .gitignore file', async () => {
-      const status = await checkIsFile(`${process.cwd()}/.gitignore`);
+      const status = await checkIsFile('~/test-box/.gitignore');
       expect(status).toEqual(true);
     });
 
