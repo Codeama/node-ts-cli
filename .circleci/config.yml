@@ -32,6 +32,19 @@ commands:
           command: |
             cd node-tsc
             npm test
+  setup_integration_test_env:
+    description: Set up environment for integrtion test
+    steps:
+      - run:
+          name: Setting up environment for integrtion test
+          command: |
+            cd ~
+            mkdir test-box
+            cd project/node-tsc
+            npm run build && npm pack
+            mv node-ts-cli-1.0.0.tgz ~/test-box
+            cd ~/test-box/
+            sudo npm install -g node-ts-cli-1.0.0.tgz 
 
 jobs:
   build_branch:
@@ -42,13 +55,6 @@ jobs:
       - install_dependencies
       - run_linter
       - run_unit_tests
-      - run:
-          name: Check Working Directory
-          command: |
-            echo "Checking current working directory"
-            pwd
-            cd ~
-            ls
     
   publish_package:
     executor: node
@@ -60,6 +66,14 @@ jobs:
             echo "Checking current working directory"
             pwd
 
+  build_test_env:
+    executor: node
+    description: Runs set up environment for integrtion test
+    steps:
+      - checkout
+      - install_dependencies
+      - setup_integration_test_env
+
 workflows:
   version: 2
 
@@ -69,6 +83,11 @@ workflows:
           filters:
             branches:
               only: /.*/
+      - build_test_env:
+          filters:
+            branches:
+              only: /.*/
+              
       - publish_package:
           filters:
             branches:
