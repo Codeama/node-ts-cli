@@ -9,7 +9,7 @@ describe('Files and Directories', () => {
       // const currentDir = process.cwd();
       log('CURRENT WORKING DIR: ', process.cwd());
       const status = await checkIsFile(
-        '~/test-box/package.json',
+        '/home/circleci/test-box/package.json',
       );
       expect(status).toEqual(true);
     });
@@ -17,12 +17,12 @@ describe('Files and Directories', () => {
 
   describe('Git', () => {
     it('should have a .gitignore file', async () => {
-      const status = await checkIsFile('~/test-box/.gitignore');
+      const status = await checkIsFile('/home/circleci/test-box/.gitignore');
       expect(status).toEqual(true);
     });
 
     it('should have a README.md file', async () => {
-      const status = await checkIsFile('~/test-box/README.md');
+      const status = await checkIsFile('/home/circleci/test-box/README.md');
       expect(status).toEqual(true);
     });
   });
@@ -30,7 +30,7 @@ describe('Files and Directories', () => {
   describe('Prettier', () => {
     it('should have a .prettierrc file', async () => {
       const status = await checkIsFile(
-        '~/test-box/.prettierrc',
+        '/home/circleci/test-box/.prettierrc',
       );
       expect(status).toEqual(true);
     });
@@ -39,14 +39,14 @@ describe('Files and Directories', () => {
   describe('TypesScript files', () => {
     it('should create a tsconfig.json file', async () => {
       const status = await checkIsFile(
-        '~/test-box/tsconfig.json',
+        '/home/circleci/test-box/tsconfig.json',
       );
       expect(status).toEqual(true);
     });
 
     it('should create a tslint.json file', async () => {
       const status = await checkIsFile(
-        '~/test-box/tslint.json',
+        '/home/circleci/test-box/tslint.json',
       );
       expect(status).toEqual(true);
     });
@@ -55,7 +55,7 @@ describe('Files and Directories', () => {
   describe('Jest', () => {
     it('should have a jestconfig.json file', async () => {
       const status = await checkIsFile(
-        '~/test-box/jestconfig.json',
+        '/home/circleci/test-box/jestconfig.json',
       );
       expect(status).toEqual(true);
     });
@@ -63,12 +63,12 @@ describe('Files and Directories', () => {
 
   describe('Directories', () => {
     it('should have a src directory', async () => {
-      const status = await checkIsDirectory('~/test-box/src');
+      const status = await checkIsDirectory('/home/circleci/test-box/src');
       expect(status).toEqual(true);
     });
 
     it('should have a lib directory', async () => {
-      const status = await checkIsDirectory('~/test-box/lib');
+      const status = await checkIsDirectory('/home/circleci/test-box/lib');
       expect(status).toEqual(true);
     });
   });

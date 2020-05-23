@@ -85,7 +85,7 @@ jobs:
       - checkout
       - install_dependencies
       - setup_integration_test_env
-      # - run_integration_test
+      - run_integration_test
 
 workflows:
   version: 2
