@@ -45,7 +45,7 @@ commands:
             mv node-ts-cli-1.0.0.tgz ~/test-box
             cd ~/test-box/
             sudo npm install -g node-ts-cli-1.0.0.tgz
-            node-tsc 
+            node-tsc .
 
   run_integration_test:
     description: Run integration test
