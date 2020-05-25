@@ -59,7 +59,7 @@ export const scripts = {
   name: 'package.json',
   config: {
     name: `${
-      process.argv[2] ? process.argv[2] : basename(resolve())
+      process.argv[2] !== '.' ? process.argv[2] : basename(resolve())
     }`,
     version: '1.0.0',
     description: '',
