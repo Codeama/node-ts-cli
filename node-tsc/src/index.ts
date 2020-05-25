@@ -47,7 +47,9 @@ function checkDirArg() {
  */
 function npmInit() {
   log(yellow(`Initialising npm project...`));
-  const { status, stderr } = spawnSync('npm', ['init', '-y']);
+  const { status, stderr } = spawnSync('npm', ['init', '-y'], {
+    shell: true,
+  });
   if (status !== 0) {
     log(red(`Error: ${stderr}`));
     log(red(`Exiting with code ${status}`));
