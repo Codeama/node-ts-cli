@@ -48,10 +48,10 @@ commands:
             node-tsc 
 
   run_integration_test:
-    description: Running integration test
+    description: Run integration test
     steps:
       - run:
-          name: Running integration test
+          name: Runs integration test
           command: |
             cd ~ 
             cd project/integration-tests
@@ -59,28 +59,18 @@ commands:
             npm test           
 
 jobs:
-  build_branch:
+  lint-and-unit-tests:
     executor: node
-    description: Builds, lints and lints code
+    description: Builds, lints and tests code
     steps:
       - checkout
       - install_dependencies
       - run_linter
       - run_unit_tests
-    
-  publish_package:
-    executor: node
-    steps:
-      - run:
-          name: Testing publish
-          command: |
-            echo "Publish package in npm repositories"
-            echo "Checking current working directory"
-            pwd
 
-  build_test_env:
+  integration-tests:
     executor: node
-    description: Runs set up environment for integration test
+    description: Sets up environment for integration test and runs it
     steps:
       - checkout
       - install_dependencies
@@ -90,21 +80,16 @@ jobs:
 workflows:
   version: 2
 
-  build_and_test:
+  build-and-test:
     jobs:
-      - build_branch:
+      - lint-and-unit-tests:
           filters:
             branches:
               only: /.*/
-      - build_test_env:
+      - integration-tests:
           filters:
             branches:
               only: /.*/
           requires:
-            - build_branch
-              
-      - publish_package:
-          filters:
-            branches:
-              only: master
+            - lint-and-unit-tests
           
