@@ -39,14 +39,18 @@ const gitFiles = [gitIgnore, readMe];
 function checkDirArg() {
   const entry = process.argv[2];
   if (!entry) {
-    log(blue(`usage: \nnode-tsc [.]\nnode-tsc [<path or project name>]`));
+    log(
+      blue(
+        `usage: \nnode-tsc [.]\nnode-tsc [<path or project name>]`,
+      ),
+    );
     process.exit();
   }
-  if(entry !== '.'){
+  if (entry !== '.') {
     const createDir = getMkdirSync(entry);
     createDir();
     process.chdir(normalize(`${process.cwd()}/${entry}`));
-  }else return;
+  } else return;
 }
 
 /**
