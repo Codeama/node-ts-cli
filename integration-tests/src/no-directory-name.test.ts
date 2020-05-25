@@ -62,13 +62,8 @@ describe('Files and Directories', () => {
   });
 
   describe('Directories', () => {
-    it.skip('should have a src directory', async () => {
+    it('should have a src directory', async () => {
       const status = await checkIsDirectory('/home/circleci/test-box/src');
-      expect(status).toEqual(true);
-    });
-
-    it.skip('should have a lib directory', async () => {
-      const status = await checkIsDirectory('/home/circleci/test-box/lib');
       expect(status).toEqual(true);
     });
   });
