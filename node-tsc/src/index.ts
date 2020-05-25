@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import { spawnSync } from 'child_process';
-import { green, red, yellow } from 'chalk';
+import { green, red, yellow, blue } from 'chalk';
 import { normalize } from 'path';
 import {
   getMkdir,
@@ -38,11 +38,15 @@ const gitFiles = [gitIgnore, readMe];
  */
 function checkDirArg() {
   const entry = process.argv[2];
-  if (entry) {
+  if (!entry) {
+    log(blue(`usage: \nnode-tsc [.]\nnode-tsc [<path or project name>]`));
+    process.exit();
+  }
+  if(entry !== '.'){
     const createDir = getMkdirSync(entry);
     createDir();
     process.chdir(normalize(`${process.cwd()}/${entry}`));
-  } else return;
+  }else return;
 }
 
 /**
