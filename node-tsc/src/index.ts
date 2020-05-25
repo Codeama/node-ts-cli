@@ -4,6 +4,7 @@ import { spawnSync } from 'child_process';
 import { green, red, yellow } from 'chalk';
 import { normalize } from 'path';
 import {
+  getMkdir,
   getMkdirSync,
   getConfigFilesFunc,
   getCreateAllFilesFunc,
@@ -40,6 +41,19 @@ function checkDirArg() {
     createDir();
     process.chdir(normalize(`${process.cwd()}/${entry}`));
   } else return;
+}
+
+/**
+ * Creates a src directory
+ */
+async function createSrcDir() {
+  try {
+    const mkSrcDir = getMkdir('src');
+    await mkSrcDir();
+    log(green('src directory created.'));
+  } catch (err) {
+    log(red(err));
+  }
 }
 
 /**
@@ -107,6 +121,7 @@ async function createGitFiles() {
 }
 
 checkDirArg();
+createSrcDir();
 npmInit();
 installDependencies();
 createConfigFiles();

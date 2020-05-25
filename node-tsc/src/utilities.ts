@@ -1,7 +1,7 @@
 import { promises, mkdirSync } from 'fs';
 import { green, redBright, red } from 'chalk';
 const { log } = console;
-const { writeFile, appendFile, readFile, access } = promises;
+const { writeFile, appendFile, readFile, access, mkdir } = promises;
 
 /**
  * Gets function to create a new directory
@@ -15,6 +15,28 @@ export function getMkdirSync(dirname: string): () => void {
   return function createDir(): void {
     try {
       mkdirSync(dirname);
+    } catch (err) {
+      if (err.code === 'EEXIST') {
+        log(redBright(`${dirname} already exists.`));
+      } else {
+        throw err;
+      }
+    }
+  };
+}
+
+/**
+ * Gets async function to create a new directory
+ * @param dirname - path to directory to be created
+ * @returns - the returned function
+ */
+export function getMkdir(dirname: string): () => Promise<void> {
+  /**
+   * Creates new directory
+   */
+  return async function createDir(): Promise<void> {
+    try {
+      mkdir(dirname);
     } catch (err) {
       if (err.code === 'EEXIST') {
         log(redBright(`${dirname} already exists.`));
