@@ -54,3 +54,21 @@ export const readMe = {
   name: 'README.md',
   content: process.argv[2] ? process.argv[2] : basename(resolve()),
 };
+
+export const scripts = {
+  name: 'package.json',
+  config: {
+    name: `${
+      process.argv[2] !== '.' ? process.argv[2] : basename(resolve())
+    }`,
+    version: '1.0.0',
+    description: '',
+    main: 'index.js',
+    scripts: {
+      build: 'tsc',
+      test: 'jest --config jestconfig.json',
+      format: 'prettier --write "src/**/*.ts"',
+      lint: 'tslint -p tsconfig.json',
+    },
+  },
+};

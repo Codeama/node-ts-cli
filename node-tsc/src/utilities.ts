@@ -1,7 +1,7 @@
-import { promises, mkdirSync } from 'fs';
+import { promises, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { green, redBright, red } from 'chalk';
 const { log } = console;
-const { writeFile, appendFile, readFile, access } = promises;
+const { writeFile, appendFile, readFile, access, mkdir } = promises;
 
 /**
  * Gets function to create a new directory
@@ -15,6 +15,34 @@ export function getMkdirSync(dirname: string): () => void {
   return function createDir(): void {
     try {
       mkdirSync(dirname);
+    } catch (err) {
+      if (err.code === 'EEXIST') {
+        log(redBright(`${dirname} already exists.`));
+        log(
+          redBright(
+            'Please provide a new directory name or run `node-tsc .` to use current directory.',
+          ),
+        );
+        process.exit();
+      } else {
+        throw err;
+      }
+    }
+  };
+}
+
+/**
+ * Gets async function to create a new directory
+ * @param dirname - path to directory to be created
+ * @returns - the returned function
+ */
+export function getMkdir(dirname: string): () => Promise<void> {
+  /**
+   * Creates new directory
+   */
+  return async function createDir(): Promise<void> {
+    try {
+      mkdir(dirname);
     } catch (err) {
       if (err.code === 'EEXIST') {
         log(redBright(`${dirname} already exists.`));
@@ -122,6 +150,30 @@ async function updateFile(
   } catch (err) {
     return err;
   }
+}
+
+/**
+ * Gets function that creates a single config file
+ * @returns a function that creates a config file when invoked
+ */
+export function getUpdateNpmConfig(): (
+  arg: ConfigFile,
+) => Promise<void> {
+  /**
+   * Inner function that creates a config file
+   * @param path - path to file to be created
+   */
+  return async function updateNpmConfig(
+    file: ConfigFile,
+  ): Promise<void> {
+    try {
+      const data = JSON.stringify(file.config, null, '\t');
+      await writeFile(file.name, data);
+      log(green(`${file.name} generated`));
+    } catch (err) {
+      log(redBright(err));
+    }
+  };
 }
 
 /**
