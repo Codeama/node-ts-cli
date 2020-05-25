@@ -10,6 +10,7 @@ import {
   getCreateAllFilesFunc,
   getCreateFileFunc,
   getCreateConfigFunc,
+  getUpdateNpmConfig,
 } from './utilities';
 import { execInstall } from './process-util';
 import { typeScript, jestScript, lintScript } from './commands';
@@ -20,6 +21,7 @@ import {
   prettierConfig,
   gitIgnore,
   readMe,
+  scripts,
 } from './configFiles/index';
 const { log } = console;
 
@@ -59,17 +61,23 @@ async function createSrcDir() {
 /**
  * Initialises an npm project
  */
-function npmInit() {
-  log(yellow(`Initialising npm project...`));
-  const { status, stderr } = spawnSync('npm', ['init', '-y'], {
-    shell: true,
-  });
-  if (status !== 0) {
-    log(red(`Error: ${stderr}`));
-    log(red(`Exiting with code ${status}`));
-    process.exit(1);
+async function npmInit() {
+  try {
+    log(yellow(`Initialising npm project...`));
+    const { status, stderr } = spawnSync('npm', ['init', '-y'], {
+      shell: true,
+    });
+    if (status !== 0) {
+      log(red(`Error: ${stderr}`));
+      log(red(`Exiting with code ${status}`));
+      process.exit(1);
+    }
+    log(green('New project initialised'));
+    const createConfigFile = getUpdateNpmConfig();
+    await createConfigFile(scripts);
+  } catch (err) {
+    log(red(err));
   }
-  log(green('New project initialised'));
 }
 
 /**
