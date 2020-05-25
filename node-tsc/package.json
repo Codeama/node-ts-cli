@@ -18,7 +18,7 @@
     "typescript",
     "node",
     "cli",
-    "no framework"
+    "starter"
   ],
   "files": [
     "/lib/configFiles",
@@ -45,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format"
+      "pre-push": "git diff HEAD --quiet && npm test"
     }
   },
   "dependencies": {
