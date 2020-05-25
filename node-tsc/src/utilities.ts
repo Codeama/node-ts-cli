@@ -20,7 +20,7 @@ export function getMkdirSync(dirname: string): () => void {
         log(redBright(`${dirname} already exists.`));
         log(
           redBright(
-            'Please provide a new directory name or run `node-tsc` to use current directory.',
+            'Please provide a new directory name or run `node-tsc .` to use current directory.',
           ),
         );
         process.exit();
