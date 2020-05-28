@@ -11,7 +11,7 @@ This is a bare-bones quick start Node and TypeScript project starter command lin
 `npm install -g node-ts-cli`
 
 ### How to Use
-To set up a project in your current working directory, on run  
+To set up a project in your current working directory, run  
 `node-tsc .`
 
 To set up a project in a new directory, run  
