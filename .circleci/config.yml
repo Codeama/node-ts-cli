@@ -14,6 +14,7 @@ commands:
           command: |
             cd node-tsc
             npm install
+  
   run_linter:
     description: Runs linter on code
     steps:
@@ -22,6 +23,7 @@ commands:
           command: |
             cd node-tsc
             npm run lint
+  
   run_unit_tests:
     description: Runs unit tests
     steps:
@@ -30,6 +32,7 @@ commands:
           command: |
             cd node-tsc
             npm test
+  
   setup_integration_test_env:
     description: Set up environment for integration test
     steps:
@@ -37,38 +40,30 @@ commands:
           name: Setting up environment for integration test
           command: |
             cd ~
-            mkdir test-box
+            mkdir test-box test-box-2
             cd project/node-tsc
-            npm run build && npm pack
-            mv node-ts-cli-1.0.0.tgz ~/test-box
-            cd ~/test-box/
+            npm run build 
+            npm pack
+            cp node-ts-cli-1.0.0.tgz ~/test-box 
+            cp node-ts-cli-1.0.0.tgz ~/test-box-2
+            cd ~/test-box/ 
+            sudo npm install -g node-ts-cli-1.0.0.tgz 
+            node-tsc .
+            cd ~/test-box-2/ 
             sudo npm install -g node-ts-cli-1.0.0.tgz
             node-tsc .
+  
   run_integration_test:
     description: Run integration test
     steps:
       - run:
-          name: Runs integration test
+          name: Running integration tests
           command: |
             cd ~ 
             cd project/integration-tests
             npm install
             npm test  
-            
-  second_integration_test_env:
-    description: Set up second environment for integration test
-    steps:
-      - run:
-          name: Setting up second environment for integration test
-          command: |
-            cd ~
-            mkdir test-box-2
-            cd project/node-tsc
-            npm run build && npm pack
-            mv node-ts-cli-1.0.0.tgz ~/test-box-2
-            cd ~/test-box-2/
-            sudo npm install -g node-ts-cli-1.0.0.tgz
-            node-tsc my-test-project
+
 jobs:
   lint-and-unit-tests:
     executor: node
@@ -87,14 +82,6 @@ jobs:
       - install_dependencies
       - setup_integration_test_env
       - run_integration_test
-  
-  second-ingegration-test:
-    executor: node
-    description: Sets up second environment for integration test
-    steps:
-      - checkout
-      - install_dependencies
-      - second_integration_test_env
 
 workflows:
   version: 2
@@ -106,12 +93,6 @@ workflows:
             branches:
               only: /.*/
       - integration-tests:
-          filters:
-            branches:
-              only: /.*/
-          requires:
-            - lint-and-unit-tests
-      - second-ingegration-test:
           filters:
             branches:
               only: /.*/
