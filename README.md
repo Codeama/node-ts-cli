@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/Codeama/node-ts-cli.svg?style=svg&circle-token=e5daeb11d210b0707dc4482031bcfe276bcdf344)](https://circleci.com/gh/Codeama/node-ts-cli)
 
- ## node-ts-cli
+ ## node-tsc
 A bare-bones quick start NodeJS and TypeScript project starter command line tool. I wrote this to increase my productivity when I need to start a new TypeScript project and to prevent being bugged down by configuration. The config files generated are pretty basic and hopefully make it easy to amend as needed.
 (*Full disclosure: I also built it to...you know...scratch that developer itch we often have.*) ¯\\_(ツ)_/¯
 
@@ -8,7 +8,7 @@ A bare-bones quick start NodeJS and TypeScript project starter command line tool
 - Node.js v12 or later
 
 ### Installation
-`$  npm install -g node-ts-cli`
+`$  npm install -g @bukolajimoh/node-tsc`
 
 ### How to Use
 To set up a project in your current working directory, run  

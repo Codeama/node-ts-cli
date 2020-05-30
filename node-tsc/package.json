@@ -1,5 +1,5 @@
 {
-  "name": "node-ts-cli",
+  "name": "@bukolajimoh/node-tsc",
   "version": "1.0.0",
   "description": "A bare-bones node/typescript project starter",
   "author": "Bukola Jimoh",
