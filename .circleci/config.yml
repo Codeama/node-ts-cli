@@ -51,7 +51,7 @@ commands:
             node-tsc .
             cd ~/test-box-2/ 
             sudo npm install -g bukolajimoh-node-tsc-1.0.0.tgz
-            node-tsc .
+            node-tsc my-test-project
   
   run_integration_test:
     description: Run integration test
