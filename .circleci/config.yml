@@ -44,13 +44,13 @@ commands:
             cd project/node-tsc
             npm run build 
             npm pack
-            cp node-ts-cli-1.0.0.tgz ~/test-box 
-            cp node-ts-cli-1.0.0.tgz ~/test-box-2
+            cp bukolajimoh-node-tsc-1.0.0.tgz ~/test-box 
+            cp bukolajimoh-node-tsc-1.0.0.tgz ~/test-box-2
             cd ~/test-box/ 
-            sudo npm install -g node-ts-cli-1.0.0.tgz 
+            sudo npm install -g bukolajimoh-node-tsc-1.0.0.tgz 
             node-tsc .
             cd ~/test-box-2/ 
-            sudo npm install -g node-ts-cli-1.0.0.tgz
+            sudo npm install -g bukolajimoh-node-tsc-1.0.0.tgz
             node-tsc .
   
   run_integration_test:
