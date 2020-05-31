@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  win: circleci/windows@2.2.0 
 
 executors:
   node:
@@ -62,8 +64,66 @@ commands:
             cd ~ 
             cd project/integration-tests
             npm install
-            npm test  
+            npm test
 
+  install_dependencies_windows:
+    description: Installs dependencies for project
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            npm i -S node-powershell
+            cd node-tsc
+            npm install
+
+  run_linter_windows:
+    description: Runs linter on code
+    steps:
+      - run:
+          name: Lint
+          command: |
+            cd node-tsc
+            npm run lint
+ 
+  run_unit_tests_windows:
+    description: Runs unit tests
+    steps:
+      - run:
+          name: Run unit tests
+          command: |
+            cd node-tsc
+            npm test
+
+  setup_integration_test_env_windows:
+    description: Set up environment for integration test
+    steps:
+      - run:
+          name: Setting up environment for integration test
+          command: |
+            cd ~
+            mkdir test-box test-box-2
+            cd project/node-tsc
+            npm run build
+            npm pack
+            cp bukolajimoh-node-tsc-1.0.0.tgz ~/test-box
+            cp bukolajimoh-node-tsc-1.0.0.tgz ~/test-box-2
+            cd ~/test-box/
+            npm install -g bukolajimoh-node-tsc-1.0.0.tgz
+            node-tsc .
+            cd ~/test-box-2/
+            npm install -g bukolajimoh-node-tsc-1.0.0.tgz
+            node-tsc my-test-project
+
+  run_integration_test_windows:
+    description: Run integration test
+    steps:
+      - run:
+          name: Runs integration test
+          command: |
+            cd ~
+            cd project/integration-tests
+            npm install
+            npm test
 jobs:
   lint-and-unit-tests:
     executor: node
@@ -83,6 +143,26 @@ jobs:
       - setup_integration_test_env
       - run_integration_test
 
+  windows-lint-and-unit-tests:
+    executor: 
+      name: win/default
+      shell: bash.exe
+    steps:
+      - checkout
+      - install_dependencies_windows
+      - run_linter_windows
+      - run_unit_tests_windows
+  windows-integration-tests:
+    executor:
+      name: win/default
+      shell: bash.exe
+    description: Sets up environment for integration test and runs it
+    steps:
+      - checkout
+      - install_dependencies_windows
+      - setup_integration_test_env_windows
+      - run_integration_test_windows
+
 workflows:
   version: 2
 
@@ -98,3 +178,13 @@ workflows:
               only: /.*/
           requires:
             - lint-and-unit-tests
+      - windows-lint-and-unit-tests:
+          filters:
+            branches:
+              only: /.*/
+      - windows-integration-tests:
+          filters:
+            branches:
+              only: /.*/
+          requires:
+            - windows-lint-and-unit-tests

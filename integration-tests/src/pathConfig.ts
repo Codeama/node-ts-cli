@@ -1,6 +1,7 @@
 // circleci path to test
-const testNoDirPath = '/home/circleci/test-box';
-const testWithDirPath = '/home/circleci/test-box-2/my-test-project'
+const rootName = process.platform === 'win32' ? 'Users' : 'home';
+const testNoDirPath = `/${rootName}/circleci/test-box`;
+const testWithDirPath = `/${rootName}/circleci/test-box-2/my-test-project`;
 
 
 export const noDirectoryPaths = {
